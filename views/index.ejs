@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookWars</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+    <header>
+        <h1>Welcome to BookWars!</h1>
+        <h3>Who reads the most books?</h3>
+    </header>
+
+
+<% for (let i = 0; i < readers.length; i++) { %>
+    <div>
+        <strong><%= readers[i] %></strong>
+        <ul>
+            <% for (let j = 0; j < books[i].length; j++) { %>
+                <li><%= books[i][j] %></li>
+            <% } %>
+        </ul>
+    </div>
+<% } %>
+
+</body>
+</html>
