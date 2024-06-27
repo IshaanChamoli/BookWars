@@ -43,14 +43,23 @@ app.get("/", async (req, res) => {
     }
 
     // FINAL ARRAYS 
-    console.log(readersArray);
-    console.log(books2DArray);
-
     res.render("index.ejs", {
         readers: readersArray,
         books: books2DArray
     });
 });
+
+app.post("/add", async (req, res) => {
+    var data = await db.query("SELECT id FROM users WHERE name = $1", [req.body.user]);
+    var id = data.rows[0].id;
+    db.query("INSERT INTO books (book_name, user_id) VALUES ($1, $2)", [req.body.bookname, id]);
+    res.redirect("/");
+})
+
+app.post("/delete", async (req, res) => {
+    db.query("DELETE FROM books WHERE book_name = $1", [req.body.whichBook]);
+    res.redirect("/")
+})
 
 
 

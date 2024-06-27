@@ -6,3 +6,93 @@ h3 {
     font-weight: 100;
     font-style: italic;
 }
+
+ul {
+    list-style-type: none;  /* Remove default bullet points */
+    padding: 0;  /* Remove default padding */
+    display: flex;
+    flex-wrap: wrap;  /* Enable wrapping to the next line */
+    gap: 10px;  /* Space between boxes */
+  }
+  
+  ul li {
+    background-color: #f0f0f0;  /* Background color of the boxes */
+    border: 1px solid #ccc;  /* Border of the boxes */
+    border-radius: 5px;  /* Rounded corners */
+    padding: 20px;  /* Space inside the boxes */
+    margin: 10px 0;  /* Vertical space between the boxes */
+    width: calc((100% - 40px) / 5);  /* Fixed width to fit 5 boxes per row */
+    box-sizing: border-box;  /* Include padding and border in the width */
+    text-align: center;  /* Center the content inside the boxes */
+  }
+  
+  /* Ensure alignment to the left */
+  ul {
+    justify-content: flex-start;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1200px) {
+    ul li {
+      width: calc((100% - 30px) / 4);  /* 4 boxes per row */
+    }
+  }
+  
+  @media (max-width: 900px) {
+    ul li {
+      width: calc((100% - 20px) / 3);  /* 3 boxes per row */
+    }
+  }
+  
+  @media (max-width: 600px) {
+    ul li {
+      width: calc((100% - 10px) / 2);  /* 2 boxes per row */
+    }
+  }
+  
+  @media (max-width: 400px) {
+    ul li {
+      width: 100%;  /* 1 box per row */
+    }
+  }
+
+  
+  .feedback-form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .rating {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row-reverse; /* this is the magic */
+    justify-content: flex-end;
+  }
+  
+  .rating input {
+    display: none;
+  }
+  
+  .rating label {
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .rating label:hover,
+  .rating label:hover ~ label { /* reason why the stars are in reverse order in the html */
+    color: orange;
+  }
+  
+  .rating input:checked ~ label {
+    color: orange;
+  }
+  
+  .submit-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
