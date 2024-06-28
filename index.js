@@ -18,8 +18,16 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static("public"));
 
+var ratingBased = false;
 
-
+app.post("/sorted", (req, res) => {
+   if (req.body.sortBy == "rating") {
+    ratingBased = true;
+   } else if (req.body.sortBy == "id") {
+    ratingBased = false;
+   }
+   res.redirect("/");
+})
 
 app.get("/", async (req, res) => {
     //getting array of all readers
@@ -32,35 +40,53 @@ app.get("/", async (req, res) => {
 
     //getting 2d array of each readers books
     var books2DArray = []
+    var bookRatings2DArray = []
     for (let i = 0; i < readers.length; i++) {
-        var datatwo = await db.query("SELECT * FROM books WHERE user_id = $1", [readers[i].id]);
+        if (ratingBased) {
+            var datatwo = await db.query("SELECT * FROM books WHERE user_id = $1 ORDER BY rating DESC", [readers[i].id]);
+        } else {
+            var datatwo = await db.query("SELECT * FROM books WHERE user_id = $1 ORDER BY id DESC", [readers[i].id]);
+        }
         var singleBooks = datatwo.rows;
         var singleBooksArray = [];
+        var singleBookRatingsArray = [];
         for (let j = 0; j < singleBooks.length; j++) {
-            singleBooksArray.push(singleBooks[j].book_name)
+            singleBooksArray.push(singleBooks[j].book_name);
+            singleBookRatingsArray.push(singleBooks[j].rating);
         } 
         books2DArray.push(singleBooksArray);
+        bookRatings2DArray.push(singleBookRatingsArray);
     }
-
     // FINAL ARRAYS 
     res.render("index.ejs", {
         readers: readersArray,
-        books: books2DArray
+        books: books2DArray,
+        ratings: bookRatings2DArray
     });
 });
 
 app.post("/add", async (req, res) => {
+    res.render("add.ejs", {
+        user: req.body.user
+    });
+})
+
+app.post("/added", async (req, res) => {
     var data = await db.query("SELECT id FROM users WHERE name = $1", [req.body.user]);
     var id = data.rows[0].id;
-    db.query("INSERT INTO books (book_name, user_id) VALUES ($1, $2)", [req.body.bookname, id]);
+
+    db.query("INSERT INTO books (book_name, user_id, rating) VALUES ($1, $2, $3)", [req.body.bookname, id, req.body.rating || 0]);
     res.redirect("/");
 })
 
 app.post("/delete", async (req, res) => {
-    db.query("DELETE FROM books WHERE book_name = $1", [req.body.whichBook]);
+    var data = await db.query("SELECT id FROM users WHERE name = $1", [req.body.whichUser]);
+    var id = data.rows[0].id;
+    console.log(id);
+    console.log(req.body.whichBook);
+    await db.query("DELETE FROM books WHERE book_name = $1 AND user_id = $2", [req.body.whichBook, id]);
     res.redirect("/")
 })
-
 
 
 

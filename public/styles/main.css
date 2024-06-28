@@ -59,7 +59,6 @@ ul {
   
   .feedback-form {
     max-width: 400px;
-    margin: 0 auto;
   }
   
   .rating {
@@ -94,5 +93,9 @@ ul {
     border: none;
     cursor: pointer;
     border-radius: 5px;
+  }
+
+  .checked {
+    color: orange;
   }
   
