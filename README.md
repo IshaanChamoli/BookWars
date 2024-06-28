@@ -14,6 +14,6 @@ Phase 1:
 - UI Design (use Tailwind)
 
 Phase 2:
-- Log in page + authentication for each user
+- Log in + authentication page for each user
 - bookName + rating + pages update options
 - Leaderboard (Total pages read across all books)
