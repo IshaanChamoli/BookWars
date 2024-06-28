@@ -39,7 +39,9 @@
                 <li>
                     
                     <form action="/delete" method="POST">
-                        
+                        <% var olidString = "https://covers.openlibrary.org/b/olid/" + olids[i][j] + "-M.jpg" %>
+                        <img class="bookCover" src=<%= olidString %>>
+                        <br><br>
                         <!-- BOOK NAME -->
                         <%= books[i][j] %><br>
                         
