@@ -1,8 +1,11 @@
 I missed my childhood full of daily reading...
-Hoping to make it a habit once again, I made BookWars - A website for friends/classmates/clubs to race and compete to see how many books each person can read!
+Hoping to make it a habit once again, I got to building! Presenting...
+
+<h3>BookWars</h3>
+A website for friends/classmates/clubs to race and compete to see how many books each person can read!<br>
 Great platform for schools and clubs ; )
 
-
+<br><br>
 Features to add ===> 
 
 Phase 1:
