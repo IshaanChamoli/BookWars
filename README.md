@@ -16,4 +16,4 @@ Phase 1:
 Phase 2:
 - Log in + authentication page for each user
 - bookName + rating + pages update options
-- Leaderboard (Total pages read across all books)
+- Leaderboard (Total pages read by each user across all books)
