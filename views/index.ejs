@@ -39,8 +39,8 @@
                 <li>
                     
                     <form action="/delete" method="POST">
-                        <% var olidString = "https://covers.openlibrary.org/b/olid/" + olids[i][j] + "-M.jpg" %>
-                        <img class="bookCover" src=<%= olidString %>>
+                        
+                        <img class="bookCover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT58P55blSKZmf2_LdBoU7jETl6OiB2sjYy9A&s" alt="Book Cover" data-book="<%= books[i][j] %>" id="cover-<%= i %>-<%= j %>">
                         <br><br>
                         <!-- BOOK NAME -->
                         <%= books[i][j] %><br>
@@ -70,5 +70,25 @@
         </ul>
     </div>
 <% } %>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const bookImages = document.querySelectorAll('img[data-book]');
+        bookImages.forEach(async function (img) {
+            const bookName = img.getAttribute('data-book');
+            try {
+                const response = await fetch(`https://openlibrary.org/search.json?q=${bookName}`);
+                const data = await response.json();
+                const olid = data.docs[0].cover_edition_key || "NA";
+                if (olid !== "NA") {
+                    img.src = `https://covers.openlibrary.org/b/olid/${olid}-M.jpg`;
+                } else {
+                    img.src = 'path/to/placeholder/image.jpg'; // Set a placeholder image path
+                }
+            } catch (error) {
+                img.src = 'path/to/placeholder/image.jpg'; // Set a placeholder image path
+            }
+        });
+    });
+</script>
 </body>
 </html>
